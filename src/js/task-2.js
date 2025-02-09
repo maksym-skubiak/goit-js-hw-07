@@ -30,14 +30,21 @@ const fragment = document.createDocumentFragment();
 
 images.forEach((image) => {
   const listItem = document.createElement("li");
+  const link = document.createElement("a");
+  link.classList.add("gallery-link");
+  link.href = image.original;
+
   const imgElement = document.createElement("img");
+  imgElement.classList.add("gallery-image");
+  imgElement.src = image.preview;
+  imgElement.alt = image.description;
+  imgElement.setAttribute("data-source", image.original);
 
-  imgElement.src = image.url;
-  imgElement.alt = image.alt;
-
-  listItem.appendChild(imgElement);
-
+  link.appendChild(imgElement);
+  listItem.appendChild(link);
   listItem.classList.add("gallery-item");
+
   fragment.appendChild(listItem);
 });
+
 imageList.appendChild(fragment);
