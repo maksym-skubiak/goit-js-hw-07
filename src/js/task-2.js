@@ -28,8 +28,10 @@ const images = [
 const imageList = document.querySelector(".gallery");
 const fragment = document.createDocumentFragment();
 
-images.forEach((image) => {
+function createImageElement(image) {
   const listItem = document.createElement("li");
+  listItem.classList.add("gallery-item");
+
   const link = document.createElement("a");
   link.classList.add("gallery-link");
   link.href = image.url;
@@ -42,8 +44,12 @@ images.forEach((image) => {
 
   link.appendChild(imgElement);
   listItem.appendChild(link);
-  listItem.classList.add("gallery-item");
 
+  return listItem;
+}
+
+images.forEach((image) => {
+  const listItem = createImageElement(image);
   fragment.appendChild(listItem);
 });
 
