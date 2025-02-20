@@ -26,15 +26,31 @@ const images = [
 ];
 
 const imageList = document.querySelector(".gallery");
+const fragment = document.createDocumentFragment();
 
-images.forEach((image) => {
+function createImageElement(image) {
   const listItem = document.createElement("li");
-  const imgElement = document.createElement("img");
+  listItem.classList.add("gallery-item");
 
+  const link = document.createElement("a");
+  link.classList.add("gallery-link");
+  link.href = image.url;
+
+  const imgElement = document.createElement("img");
+  imgElement.classList.add("gallery-image");
   imgElement.src = image.url;
   imgElement.alt = image.alt;
+  imgElement.setAttribute("data-source", image.url);
 
-  listItem.appendChild(imgElement);
-  imageList.appendChild(listItem);
-  listItem.classList.add("gallery-item");
+  link.appendChild(imgElement);
+  listItem.appendChild(link);
+
+  return listItem;
+}
+
+images.forEach((image) => {
+  const listItem = createImageElement(image);
+  fragment.appendChild(listItem);
 });
+
+imageList.appendChild(fragment);
